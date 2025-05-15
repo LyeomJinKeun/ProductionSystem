@@ -8,12 +8,12 @@ namespace ProductionSystem.Web.Controllers
         public IActionResult Index()
         {
             var user = HttpContext.Session.GetString("UserAccount");
-            var isAdmin = HttpContext.Session.GetString("IsAdmin");
             if (string.IsNullOrEmpty(user))
                 return RedirectToAction("Login", "Account");
 
             ViewBag.User = user;
-            ViewBag.IsAdmin = isAdmin == "true";
+            ViewBag.UserName = HttpContext.Session.GetString("UserName");
+            ViewBag.IsAdmin = HttpContext.Session.GetString("IsAdmin") == "1" ? true : false;
 
             return View();
         }

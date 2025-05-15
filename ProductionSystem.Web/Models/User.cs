@@ -1,4 +1,6 @@
-﻿namespace ProductionSystem.Web.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ProductionSystem.Web.Models
 {
     public class User
     {
@@ -7,6 +9,7 @@
         public string Account { get; set; } = string.Empty;
 
         public string Password { get; set; } = string.Empty;
+        [Column(TypeName = "nvarchar(100)")]
         public string UserName { get; set; } = string.Empty;
         public string UserType { get; set; } = string.Empty;
         public string AllowApp { get; set; } = string.Empty;
