@@ -1,0 +1,73 @@
+name: Build, Test, Migrate and Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-test-deploy:
+    runs-on: windows-latest
+
+    env:
+      DOTNET_VERSION: '8.0.x'
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Restore Dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Run Tests
+      run: dotnet test --no-build --verbosity normal
+
+    - name: EF Core Database Update (마이그레이션 실행)
+      run: dotnet ef database update --project ProductionSystem.Web
+      env:
+        ASPNETCORE_ENVIRONMENT: Production
+
+    # ⬇️ Azure App Service 배포 예시 (선택)
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: YOUR_AZURE_APP_NAME
+        slot-name: production
+        publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+        package: ./ProductionSystem.Web
+
+    # ⬇️ IIS FTP 배포 예시 (Azure 대신)
+    # - name: FTP Deploy to IIS Server
+    #   uses: SamKirkland/FTP-Deploy-Action@v4
+    #   with:
+    #     server: ${{ secrets.FTP_SERVER }}
+    #     username: ${{ secrets.FTP_USERNAME }}
+    #     password: ${{ secrets.FTP_PASSWORD }}
+    #     local-dir: ./ProductionSystem.Web/bin/Release/net8.0/publish
+
+    - name: Slack 알림 (실패 시만)
+      if: failure()
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_MESSAGE: "🚨 GitHub Actions 실패: ${{ github.workflow }} | ${{ github.ref }}"
+
+    - name: 이메일 알림 (실패 시)
+      if: failure()
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.gmail.com
+        server_port: 587
+        username: ${{ secrets.EMAIL_USERNAME }}
+        password: ${{ secrets.EMAIL_PASSWORD }}
+        subject: "🔴 GitHub Actions 실패 알림"
+        body: "❌ 빌드 또는 배포가 실패했습니다. 확인이 필요합니다.\n\n리포지토리: ${{ github.repository }}\n브랜치: ${{ github.ref }}"
+        to: jingeun@example.com
+        from: GitHub CI

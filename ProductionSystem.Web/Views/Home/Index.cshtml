@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "홈";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = ViewBag.User ?? "사용자";
+}
+<link rel="stylesheet" href="~/css/site.css" />
+
+<!-- 로그아웃 버튼 -->
+<a href="/Account/Logout" class="logout-button">로그아웃</a>
+
+<!-- 프로그램 영역 전체 -->
+<div class="program-section">
+    <!-- 환영 메시지 -->
+    <div class="welcome-message">
+        환영합니다, <span style="color:#0078D7">@user</span> 님
+    </div>
+
+    <!-- 관리자 태그 -->
+    @if (ViewBag.IsAdmin)
+    {
+        <div class="admin-label">[관리자 권한]</div>
+    }
+
+    <!-- 버튼들 -->
+    <div class="program-buttons">
+        @if (ViewBag.IsAdmin)
+        {
+            <a href="/Apps/System" class="program-box" style="color: lawngreen;">시스템 관리</a>
+        }
+        <a href="/Apps/Recipe" class="program-box">Recipe 관리</a>
+        <a href="/Apps/Monitor" class="program-box">시스템 모니터</a>
+        <a href="/Apps/Inspection" class="program-box">판정 UI</a>
+    </div>
+</div>
