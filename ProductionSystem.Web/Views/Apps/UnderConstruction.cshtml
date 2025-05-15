@@ -3,7 +3,58 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div style="text-align:center; padding: 100px 20px;">
-    <h2 style="font-size: 28px; color: hotpink;">염희우 & 염희진 사랑해 ❤️</h2>
-    <p style="font-size: 18px; color: deeppink;">아빠는 우리 아이들이 세상에서 제일 좋아 💖</p>
+<style>
+    .love-button {
+        padding: 12px 32px;
+        background-color: #f06292;
+        color: white;
+        border: none;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        animation: pulse 2s infinite;
+    }
+
+    /* 클릭 시 튕김 효과 */
+    .love-button:hover {
+        transform: scale(1.05);
+        background-color: #ec407a;
+    }
+
+    /* 반짝 효과 */
+    .love-button::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -75%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(120deg, rgba(255,255,255,0.3), rgba(255,255,255,0));
+        transform: skewX(-25deg);
+        animation: shine 2s infinite;
+    }
+
+    /* 하트 뛰는 듯한 animation */
+    @@keyframes pulse {
+        0%   { transform: scale(1); }
+        50%  { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    @@keyframes shine {
+        0%   { left: -75%; }
+        100% { left: 125%; }
+    }
+</style>
+
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 100px 20px;">
+    <h2 style="font-size: 28px; color: hotpink; margin-bottom: 20px;">염희우 & 염희진</h2>
+    <p style="font-size: 18px; color: deeppink; margin-bottom: 60px;">아빠는 우리 아이들이 세상에서 제일 좋아 💖</p>
+
+    <button onclick="history.back()" class="love-button">❤️</button>
 </div>
