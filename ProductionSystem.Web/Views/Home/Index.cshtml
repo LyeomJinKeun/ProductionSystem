@@ -1,0 +1,14 @@
+﻿<h2>환영합니다, @ViewBag.User 님</h2>
+
+@if (ViewBag.IsAdmin)
+{
+    <p style="color: red;">[관리자 권한]</p>
+}
+
+<ul>
+    <li><a href="#">설정 관리 프로그램</a></li>
+    <li><a href="#">모니터링 프로그램</a></li>
+    <li><a href="#">검사용 프로그램</a></li>
+</ul>
+
+<a href="/Account/Logout">로그아웃</a>
