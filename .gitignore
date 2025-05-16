@@ -6,6 +6,8 @@
 # 빌드 출력물
 bin/
 obj/
+*_bin/
+*_obj/
 
 # ASP.NET Core 관련
 wwwroot/node_modules/
