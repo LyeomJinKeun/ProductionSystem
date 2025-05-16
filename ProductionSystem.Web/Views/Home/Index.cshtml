@@ -2,6 +2,7 @@
     ViewData["Title"] = "홈";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var user = ViewBag.User ?? "사용자";
+    var userName = ViewBag.UserName ?? "사용자이름";
 }
 <link rel="stylesheet" href="~/css/site.css" />
 
@@ -12,7 +13,7 @@
 <div class="program-section">
     <!-- 환영 메시지 -->
     <div class="welcome-message">
-        환영합니다, <span style="color:#0078D7">@user</span> 님
+        환영합니다, <span style="color:#0078D7">@userName</span> 님
     </div>
 
     <!-- 관리자 태그 -->

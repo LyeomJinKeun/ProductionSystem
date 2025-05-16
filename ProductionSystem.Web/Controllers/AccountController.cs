@@ -27,7 +27,8 @@ namespace ProductionSystem.Web.Controllers
             if (account == "admin" && password == "1234")
             {
                 HttpContext.Session.SetString("UserAccount", "admin");
-                HttpContext.Session.SetString("IsAdmin", "true");
+                HttpContext.Session.SetString("UserName", "관리자");
+                HttpContext.Session.SetString("IsAdmin", "1");
                 return RedirectToAction("Index", "Home");
             }
 
@@ -39,6 +40,8 @@ namespace ProductionSystem.Web.Controllers
             }
 
             HttpContext.Session.SetString("UserAccount", user.Account);
+            HttpContext.Session.SetString("UserName", user.UserName);
+            HttpContext.Session.SetString("IsAdmin", user.UserType == "0" ? "1" : "0");
             return RedirectToAction("Index", "Home");
         }
 
