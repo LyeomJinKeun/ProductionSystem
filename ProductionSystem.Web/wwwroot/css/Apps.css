@@ -1,0 +1,103 @@
+﻿/* ========== 상단 네비게이션 바 ========== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(135deg, #e53935, #ef5350);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+}
+
+/* ========== 공통 버튼 스타일 (WPF 느낌) ========== */
+.app-button {
+    color: white;
+    background: linear-gradient(135deg, #673ab7, #9575cd);
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+    .app-button:hover {
+        transform: translateX(-3px);
+        box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
+    }
+
+/* ========== 드롭다운 메뉴 구성 ========== */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: transparent;
+    min-width: 180px;
+    padding-top: 8px;
+    border-radius: 12px;
+    box-shadow: none;
+    z-index: 1001;
+}
+
+    .dropdown-content .app-button {
+        width: 150px;
+        font-size: 14px;
+        margin: 5px auto;
+        cursor: pointer; /* grab → default */
+    }
+
+/* 드롭다운 열기 */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* ========== 서브메뉴 컨테이너 (구버전 유지 시 사용) ========== */
+.submenu-container {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background-color: #ecf0f1;
+    border-bottom: 1px solid #ccc;
+}
+
+/* 드래그 가능한 메뉴 아이템 (사용자 정의 필요 시) */
+.submenu-item {
+    cursor: default;
+    margin-bottom: 6px;
+}
+
+/* ========== 드롭 영역 (전체 화면 영역) ========== */
+.drop-area {
+    position: absolute;
+    top: 250px; /* 메뉴바 아래 */
+    left: 50px;
+    right: 50px;
+    bottom: 50px;
+    background-color: antiquewhite;
+    padding: 20px;
+    overflow: auto;
+    z-index: 1;
+    /* 좌→우 순서대로 배치되도록 설정 */
+    display: block; /* 기존 flex 제거 */
+    text-align: left; /* 텍스트 및 요소 왼쪽 정렬 */
+}
+
+/* 드롭된 버튼 스타일 */
+.draggable-button {
+    display: inline-block;
+    margin: 10px;
+    position: relative;
+    user-select: none;
+}
+    .draggable-button.dragging {
+        opacity: 0.5;
+    }
