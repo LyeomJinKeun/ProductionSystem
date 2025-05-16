@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <BaseOutputPath>..\_bin\ProductionSystem.Web\</BaseOutputPath>
+	<BaseIntermediateOutputPath>..\_obj\ProductionSystem.Web\</BaseIntermediateOutputPath>
   </PropertyGroup>
 
   <ItemGroup>

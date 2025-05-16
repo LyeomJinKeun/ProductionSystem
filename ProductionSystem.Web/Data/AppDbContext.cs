@@ -11,6 +11,6 @@ namespace ProductionSystem.Web.Data
         {
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserModel> Users { get; set; }
     }
 }

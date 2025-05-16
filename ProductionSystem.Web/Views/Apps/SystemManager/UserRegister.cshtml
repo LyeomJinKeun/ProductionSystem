@@ -1,0 +1,71 @@
+﻿@model ProductionSystem.Web.Models.UserModel
+@{
+    ViewData["Title"] = "사용자 등록";
+    var userList = ViewBag.Users as List<ProductionSystem.Web.Models.UserModel>;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<table class="table table-bordered table-striped text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>계정</th>
+            <th>암호</th>
+            <th>이름</th>
+            <th>권한</th>
+            <th>AllowApp</th>
+            <th>AllowView</th>
+            <th>삭제</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (userList != null && userList.Count > 0)
+        {
+            foreach (var user in userList)
+            {
+                <tr>
+                    <td>@user.Account</td>
+                    <td>••••••</td>
+                    <td>@user.UserName</td>
+                    <td>@user.UserType</td>
+                    <td>@user.AllowApp</td>
+                    <td>@user.AllowView</td>
+                    <td>
+                        <form asp-action="Delete" asp-controller="UserRegister" method="post">
+                            <input type="hidden" name="id" value="@user.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+
+        <!-- 입력용 빈 행 -->
+        <tr>
+            <form asp-action="Create" asp-controller="UserRegister" method="post">
+            <td><input asp-for="Account" class="form-control" /></td>
+            <td><input asp-for="Password" class="form-control" type="password" /></td>
+            <td><input asp-for="UserName" class="form-control" /></td>
+            <td>
+                <select asp-for="UserType" class="form-control">
+                    <option value="">-- 선택 --</option>
+                    <option value="0">관리자</option>
+                    <option value="1">일반 사용자</option>
+                </select>
+            </td>
+            <td><input asp-for="AllowApp" class="form-control" /></td>
+            <td><input asp-for="AllowView" class="form-control" /></td>
+            <td><button type="submit" class="btn btn-primary btn-sm">등록</button></td>
+            </form>
+        </tr>
+    </tbody>
+</table>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

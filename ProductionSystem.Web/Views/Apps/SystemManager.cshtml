@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "System Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/Apps.css" />
+<script src="~/js/Apps.js" defer></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // 드롭영역 초기화
+        initializeDragAndDrop("dropzone");
+
+        // 모든 드래그 가능한 버튼에 이벤트 연결
+        document.querySelectorAll(".submenu-item").forEach(item => {
+            item.addEventListener("dragstart", (e) => {
+                e.dataTransfer.setData("label", item.textContent.trim());
+                e.dataTransfer.setData("href", item.dataset.href);
+            });
+        });
+    });
+</script>
+
+<div class="navbar">
+    <div class="dropdown">
+        <button class="app-button" style="background: linear-gradient(135deg, #2196f3, #64b5f6)">
+            사용자 관리</button>
+        <div class="dropdown-content">
+            <div class="app-button submenu-item" draggable="true" data-href="/Apps/SystemManager/UserRegister">
+                사용자 등록</div>
+            <div class="app-button submenu-item" draggable="true" data-href="/Apps/UnderConstruction">
+                사용자 권한 지정</div>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="app-button" style="background: linear-gradient(135deg, #2196f3, #64b5f6)">
+            생산 현황 관리</button>
+        <div class="dropdown-content">
+            <div class="app-button submenu-item" draggable="true" data-href="/Apps/UnderConstruction">
+                검사 현황 제어</div>
+            <div class="app-button submenu-item" draggable="true" data-href="/Apps/UnderConstruction">
+                재 검사 진행</div>
+        </div>
+    </div>
+</div>
+
+<div style="padding-top: 20px;">
+    <div id="dropzone" class="drop-area">
+        <h4>바로 가기 영역</h4>
+    </div>
+</div>

@@ -21,7 +21,7 @@ namespace ProductionSystem.Web.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ProductionSystem.Web.Models.User", b =>
+            modelBuilder.Entity("ProductionSystem.Web.Models.UserModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
